@@ -256,6 +256,16 @@
             ]
         }
 
+        const schoolNames = [
+            { lat: 37.16891785125243, lng: -93.55930081819317, name: "Sweeny" },
+            { lat: 37.130607028931614, lng: -93.46660367463848, name: "Sweeny" },
+            { lat: 37.12294253563649, lng: -93.54385129426738, name: "Schofield" },
+            { lat: 37.16317246525861, lng: -93.44291440461895, name: "Price" },
+            { lat: 37.09775373617577, lng: -93.43295804475567, name: "McCulloch" },
+            { lat: 37.12212129389142, lng: -93.45218411897442, name: "Lyon" },
+            { lat: 37.105694588048074, lng: -93.36154691194317, name: "Lyon" },
+        ]
+
         bounds.features.forEach((poly, key) => {
             poly.properties.COLOR = colors[key]
         })
@@ -316,6 +326,24 @@
             });
 
 
+            schoolNames.forEach((school) => {
+                new google.maps.Marker({
+                    position: { lat: school.lat, lng: school.lng },
+                    map: map,
+                    label: {
+                        text: school.name,   // This is the text for the marker
+                        color: "black",
+                        fontSize: "12px",
+                        fontWeight: "bold"
+                    },
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 0, // Makes the default marker invisible
+                    }
+                });
+            });
+
+
             google.maps.event.addListenerOnce(map, 'tilesloaded', function (event) {
                 legend.style.display = "inline";
                 searchPannel.style.display = "inline"
@@ -359,6 +387,21 @@
                     i.style.backgroundColor = "white";
                 })
             });
+
+            // map.data.addListener("click", (event) => {
+            //     // Get the latitude and longitude of the click
+            //     const lat = event.latLng.lat();
+            //     const lng = event.latLng.lng();
+
+            //     // Log the coordinates or do something with them
+            //     console.log("{lat:" + lat + ", lng:" + lng + "}");
+
+            //     // Optionally, you can place a marker where the user clicked
+            //     new google.maps.Marker({
+            //         position: event.latLng,
+            //         map: map,
+            //     });
+            // });
 
         }
 
